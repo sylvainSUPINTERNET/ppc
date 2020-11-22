@@ -8,7 +8,7 @@ import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
-
+import org.json.JSONObject;
 import java.io.IOException;
 
 @Component
@@ -18,9 +18,12 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-            System.out.println("New Text Message Received");
-            logger.info(message.getPayload());
-            session.sendMessage(message);
+            String msg = message.getPayload();
+            JSONObject metric = new JSONObject(msg);
+            System.out.println(metric.get("county"));
+            // CREATE DTO qui va ressembler à ca ;
+            //
+            //session.sendMessage(message);
     }
 
     @Override
@@ -28,5 +31,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
             System.out.println("New Binary Message Received");
             session.sendMessage(message);
     }
+
+
 
 }
