@@ -18,9 +18,11 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-            String msg = message.getPayload();
+        logger.info("TEST message WS : {}", message.getPayload());    
+        String msg = message.getPayload();
             JSONObject metric = new JSONObject(msg);
             System.out.println(metric.get("county"));
+
             // CREATE DTO qui va ressembler à ca ;
             //
             //session.sendMessage(message);
