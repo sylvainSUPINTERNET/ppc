@@ -2,6 +2,7 @@ package com.ppc.api.ws;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.BinaryMessage;
@@ -9,7 +10,11 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 import org.json.JSONObject;
+import org.modelmapper.ModelMapper;
 import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ppc.api.dto.metric.MetricReceivedDto;
 
 @Component
 public class WebSocketHandler extends AbstractWebSocketHandler {
@@ -20,8 +25,12 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         logger.info("TEST message WS : {}", message.getPayload());    
         String msg = message.getPayload();
-            JSONObject metric = new JSONObject(msg);
-            System.out.println(metric.get("county"));
+            //JSONObject metric = new JSONObject(msg);
+            //System.out.println(metric.get("county"));
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.readValue(msg, MetricReceivedDto.class);
+     
+    
 
             // CREATE DTO qui va ressembler à ca ;
             //
