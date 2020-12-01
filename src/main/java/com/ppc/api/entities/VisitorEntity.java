@@ -1,8 +1,18 @@
 package com.ppc.api.entities;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.GenerationType;
 
 @Entity(name="visitor")
@@ -19,6 +29,8 @@ public class VisitorEntity {
     private String postcode;
     private String state;
     private String town;
+
+    public VisitorEntity(){};
 
     VisitorEntity(String browserLanguage, String browserPlatform, String country, String countryCode, String county,
             String municipality, String postcode, String state, String town) {
@@ -105,5 +117,12 @@ public class VisitorEntity {
     public void setBrowserLanguage(String browserLanguage) {
         this.browserLanguage = browserLanguage;
     }
+
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
 }
