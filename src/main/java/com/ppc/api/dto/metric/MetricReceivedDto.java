@@ -13,4 +13,21 @@ public class MetricReceivedDto {
         this.action = action;
         this.data = data;
     }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getAction(){
+        return this.action;
+    }
+
+    public void setData (String data) {
+        this.data = data;
+    }
+
+    public String getData() {
+        return this.data;
+    }
+    
 }
