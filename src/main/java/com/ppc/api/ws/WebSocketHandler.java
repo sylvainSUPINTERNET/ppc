@@ -28,11 +28,16 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
+
+        // TODO ici une règle pour récuperer certains message et faire certainne actions en conséqueunce 
+        // ENUMERATION POUR CA et il faut faire matcher ça côté front
+
+        /*
         logger.info("TEST message WS : {}", message.getPayload());    
         String msg = message.getPayload();
-            ObjectMapper objectMapper = new ObjectMapper();
-            MetricReceivedDto metricReceivedDto = objectMapper.readValue(msg, MetricReceivedDto.class);
-            this.visitorEntityService.createVisitorEntity(metricReceivedDto);
+        ObjectMapper objectMapper = new ObjectMapper();
+        MetricReceivedDto metricReceivedDto = objectMapper.readValue(msg, MetricReceivedDto.class);
+        this.visitorEntityService.createVisitorEntity(metricReceivedDto);*/
     }
 
     @Override
