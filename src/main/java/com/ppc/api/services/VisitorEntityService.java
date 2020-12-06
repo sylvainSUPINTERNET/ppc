@@ -20,6 +20,7 @@ public class VisitorEntityService {
     public VisitorEntity createVisitorEntity (MetricReceivedDto metricReceivedDto) {
 
         VisitorEntity visitorEntity = new VisitorEntity();
+        /*
         visitorEntity.setBrowserLanguage(metricReceivedDto.getBrowserLanguage());
         visitorEntity.setBrowserPlatform(metricReceivedDto.getBrowserPlatform());
         visitorEntity.setCountry(metricReceivedDto.getCountry());
@@ -28,7 +29,7 @@ public class VisitorEntityService {
         visitorEntity.setMunicipality(metricReceivedDto.getMunicipality());
         visitorEntity.setPostcode(metricReceivedDto.getPostcode());
         visitorEntity.setState(metricReceivedDto.getState());
-        visitorEntity.setTown(metricReceivedDto.getTown());
+        visitorEntity.setTown(metricReceivedDto.getTown());*/
 
         this.visitorEntityRepository.save(visitorEntity);
 

@@ -6,15 +6,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.hibernate.annotations.UpdateTimestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity(name = "pathing")
 public class Pathing {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
     private float[][] pathMatrix;
     private String action;
     private String appLocation; // e.g /home

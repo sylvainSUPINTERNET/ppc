@@ -12,24 +12,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WsDispatchActions {
-    public enum Visitor {
-        CREATE_VISITOR
-    }
-
-    public enum Pathing {
-        CREATE_PATHING
-    }
 
     public String getActionFromClient(String wsPayload) {
         String msg = wsPayload;
         ObjectMapper objectMapper = new ObjectMapper();
-        MetricReceivedDto metricReceivedDto;
-
         try {
-           metricReceivedDto = objectMapper.readValue(msg, MetricReceivedDto.class);
+            MetricReceivedDto metricReceivedDto = objectMapper.readValue(msg, MetricReceivedDto.class);
            return metricReceivedDto.getAction();
         } catch (JsonProcessingException e) {
             return e.getMessage();
         }
     }
+
 }

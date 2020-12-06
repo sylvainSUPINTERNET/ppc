@@ -1,15 +1,14 @@
 package com.ppc.api.dto.metric;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class MetricReceivedDto {
-    @JsonProperty("action")
     private String action; // Send by client but MUST corresponding to enum value present in WsDispatchActions
 
-    @JsonProperty("data") // Send by client but MUST be compliant with the service called;
-    private String data;
+    // Send by client but MUST be compliant with the service called;
+    private Object data;
 
-    public MetricReceivedDto(String action, String data) {
+    MetricReceivedDto(){}
+
+    public MetricReceivedDto(String action, Object data) {
         this.action = action;
         this.data = data;
     }
@@ -22,11 +21,11 @@ public class MetricReceivedDto {
         return this.action;
     }
 
-    public void setData (String data) {
+    public void setData (Object data) {
         this.data = data;
     }
 
-    public String getData() {
+    public Object getData() {
         return this.data;
     }
     
