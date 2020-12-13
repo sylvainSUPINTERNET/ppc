@@ -1,5 +1,8 @@
 package com.ppc.api.staticCnf;
 
-public enum VisitorActions {
-    CREATE_VISITOR
+import org.springframework.stereotype.Component;
+
+@Component
+public class VisitorActions {
+    public static final String CREATE_VISITOR = "CREATE_VISITOR";
 }

@@ -1,5 +1,8 @@
 package com.ppc.api.dto.metric;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MetricReceivedDto {
     private String action; // Send by client but MUST corresponding to enum value present in WsDispatchActions
 

@@ -13,25 +13,31 @@ import java.io.IOException;
 import com.ppc.api.services.VisitorEntityService;
 import com.ppc.api.staticCnf.PathingActions;
 import com.ppc.api.staticCnf.WsDispatchActions;
+import com.ppc.api.services.WsMessageDispatcherVisitor;
+import com.ppc.api.services.WsMessageDispatcherPathing;
 
 @Component
 public class WebSocketHandler extends AbstractWebSocketHandler {
+    private Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
-    @Autowired
-    WsDispatchActions WsDispatchActions;
-
+    WsDispatchActions wsDispatchActions;
+    
     VisitorEntityService visitorEntityService;
 
-    WebSocketHandler(VisitorEntityService visitorEntityService) {
+    WebSocketHandler(VisitorEntityService visitorEntityService, WsDispatchActions wsDispatchActions) {
         this.visitorEntityService = visitorEntityService;
+        this.wsDispatchActions = wsDispatchActions;
     }
-
-    private Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        System.out.println(WsDispatchActions.getActionFromClient(message.getPayload()));
-        System.out.println(PathingActions.CREATE_PATHING.toString());
+
+        String actionReceived = wsDispatchActions.getActionFromClient(message.getPayload());
+        Object dataReceived = wsDispatchActions.getDataFromClient(message.getPayload());
+        this.logger.info("ACTION : {}", actionReceived);
+        wsDispatchActions.doAction(actionReceived, dataReceived);
+        
+        
         // TODO ici une règle pour récuperer certains message et faire certainne actions en conséqueunce 
         // ENUMERATION POUR CA et il faut faire matcher ça côté front
 

@@ -20,6 +20,8 @@ public class VisitorEntityService {
     public VisitorEntity createVisitorEntity (MetricReceivedDto metricReceivedDto) {
 
         VisitorEntity visitorEntity = new VisitorEntity();
+        // TODO
+        System.out.println(metricReceivedDto.getData());
         /*
         visitorEntity.setBrowserLanguage(metricReceivedDto.getBrowserLanguage());
         visitorEntity.setBrowserPlatform(metricReceivedDto.getBrowserPlatform());
