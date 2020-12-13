@@ -1,10 +1,15 @@
 package com.ppc.api.services;
 
+import com.ppc.api.dto.metric.MetricReceivedDetailsDto;
 import com.ppc.api.dto.metric.MetricReceivedDto;
 import com.ppc.api.repository.VisitorEntityRepository;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import com.ppc.api.entities.VisitorEntity;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
 @Service
@@ -21,17 +26,25 @@ public class VisitorEntityService {
 
         VisitorEntity visitorEntity = new VisitorEntity();
         // TODO
+        System.out.println("HERE");
         System.out.println(metricReceivedDto.getData());
-        /*
-        visitorEntity.setBrowserLanguage(metricReceivedDto.getBrowserLanguage());
-        visitorEntity.setBrowserPlatform(metricReceivedDto.getBrowserPlatform());
-        visitorEntity.setCountry(metricReceivedDto.getCountry());
-        visitorEntity.setCounty(metricReceivedDto.getCounty());
-        visitorEntity.setCountryCode(metricReceivedDto.getCountryCode());
-        visitorEntity.setMunicipality(metricReceivedDto.getMunicipality());
-        visitorEntity.setPostcode(metricReceivedDto.getPostcode());
-        visitorEntity.setState(metricReceivedDto.getState());
-        visitorEntity.setTown(metricReceivedDto.getTown());*/
+
+        Gson gson = new Gson();
+        String json = gson.toJson(metricReceivedDto.getData(), MetricReceivedDetailsDto.class);
+        MetricReceivedDetailsDto metricReceivedDetailsDto = gson.fromJson(json, MetricReceivedDetailsDto.class);
+        
+        visitorEntity.setBrowserLanguage(metricReceivedDetailsDto.getBrowserLanguage());
+        visitorEntity.setBrowserPlatform(metricReceivedDetailsDto.getBrowserPlatform());
+        visitorEntity.setCountry(metricReceivedDetailsDto.getCountry());
+        visitorEntity.setCounty(metricReceivedDetailsDto.getCounty());
+        visitorEntity.setCountryCode(metricReceivedDetailsDto.getCountryCode());
+        visitorEntity.setMunicipality(metricReceivedDetailsDto.getMunicipality());
+        visitorEntity.setPostcode(metricReceivedDetailsDto.getPostCode());
+        visitorEntity.setState(metricReceivedDetailsDto.getState());
+        visitorEntity.setTown(metricReceivedDetailsDto.getTown());
+
+        System.out.println("SAVE IT");
+        System.out.println(visitorEntity.toString());
 
         this.visitorEntityRepository.save(visitorEntity);
 
