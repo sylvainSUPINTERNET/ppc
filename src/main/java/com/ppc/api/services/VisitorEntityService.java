@@ -30,7 +30,7 @@ public class VisitorEntityService {
         System.out.println(metricReceivedDto.getData());
 
         Gson gson = new Gson();
-        String json = gson.toJson(metricReceivedDto.getData(), MetricReceivedDetailsDto.class);
+        String json = gson.toJson(metricReceivedDto.getData());
         MetricReceivedDetailsDto metricReceivedDetailsDto = gson.fromJson(json, MetricReceivedDetailsDto.class);
         
         visitorEntity.setBrowserLanguage(metricReceivedDetailsDto.getBrowserLanguage());
@@ -42,10 +42,6 @@ public class VisitorEntityService {
         visitorEntity.setPostcode(metricReceivedDetailsDto.getPostCode());
         visitorEntity.setState(metricReceivedDetailsDto.getState());
         visitorEntity.setTown(metricReceivedDetailsDto.getTown());
-
-        System.out.println("SAVE IT");
-        System.out.println(visitorEntity.toString());
-
         this.visitorEntityRepository.save(visitorEntity);
 
         return visitorEntity;
