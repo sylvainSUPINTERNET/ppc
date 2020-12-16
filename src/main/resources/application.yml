@@ -1,0 +1,25 @@
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: DEBUG
+                type: TRACE
+spring:
+    profiles:
+        active: dev
+    datasource:
+        hikari:
+            connectionTimeout: 20000
+            maximumPoolSize: 5
+        password: root
+        url: jdbc:postgresql://localhost:5432/zulian
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+    servlet:
+        context-path: /api/v1

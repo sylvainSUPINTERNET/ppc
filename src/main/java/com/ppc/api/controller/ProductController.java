@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/api/${API_VERSION}/products")
+@RequestMapping(path = "/api/v1/products")
 public class ProductController {
 
     private ProductCreatedDto productCreatedDto;

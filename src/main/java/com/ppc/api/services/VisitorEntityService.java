@@ -4,12 +4,12 @@ import com.ppc.api.dto.metric.MetricReceivedDetailsDto;
 import com.ppc.api.dto.metric.MetricReceivedDto;
 import com.ppc.api.repository.VisitorEntityRepository;
 
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import com.ppc.api.entities.VisitorEntity;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
+
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 
 @Service
@@ -20,14 +20,14 @@ public class VisitorEntityService {
         this.visitorEntityRepository = visitorEntityRepository;
     };
 
+    public List<VisitorEntity> getVisitors() {
+        return this.visitorEntityRepository.findAll();
+    }
 
 
     public VisitorEntity createVisitorEntity (MetricReceivedDto metricReceivedDto) {
 
         VisitorEntity visitorEntity = new VisitorEntity();
-        // TODO
-        System.out.println("HERE");
-        System.out.println(metricReceivedDto.getData());
 
         Gson gson = new Gson();
         String json = gson.toJson(metricReceivedDto.getData());
