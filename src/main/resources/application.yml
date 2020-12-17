@@ -22,4 +22,4 @@ spring:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
 server:
     servlet:
-        context-path: /api/v1
+        context-path: /api/v1 # be carefull, this also apply for ws connection URL !

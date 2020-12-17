@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,9 +24,9 @@ public class VisitorController {
 
 
     @GetMapping
-    public ResponseEntity<?> getVisitors() {
+    public ResponseEntity<?> getVisitors(@RequestParam int page, @RequestParam int pages, @RequestParam String filter) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.visitorEntityService.getVisitors());
+            return ResponseEntity.status(HttpStatus.OK).body(this.visitorEntityService.getVisitors(page, pages, filter));
         } catch (Exception e) {
             Map error = new HashMap<String, Object>();
             error.put("message", e.getMessage());

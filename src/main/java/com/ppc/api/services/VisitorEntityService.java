@@ -4,13 +4,16 @@ import com.ppc.api.dto.metric.MetricReceivedDetailsDto;
 import com.ppc.api.dto.metric.MetricReceivedDto;
 import com.ppc.api.repository.VisitorEntityRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.ppc.api.entities.VisitorEntity;
 
 import java.util.List;
 
 import com.google.gson.Gson;
-
 
 @Service
 public class VisitorEntityService {
@@ -20,8 +23,9 @@ public class VisitorEntityService {
         this.visitorEntityRepository = visitorEntityRepository;
     };
 
-    public List<VisitorEntity> getVisitors() {
-        return this.visitorEntityRepository.findAll();
+    public Page<VisitorEntity> getVisitors(int page, int nbElements, String paramSort) {
+        Pageable sortedByCreatedDate = PageRequest.of(page, nbElements, Sort.by(paramSort).descending()); // https://www.codeflow.site/fr/article/spring-data-jpa-pagination-sorting
+        return this.visitorEntityRepository.findAll(sortedByCreatedDate);
     }
 
 
