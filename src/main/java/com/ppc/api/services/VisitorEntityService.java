@@ -9,8 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+
 import com.ppc.api.entities.VisitorEntity;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -28,8 +32,8 @@ public class VisitorEntityService {
         return this.visitorEntityRepository.findAll(sortedByCreatedDate);
     }
 
-
-    public VisitorEntity createVisitorEntity (MetricReceivedDto metricReceivedDto) {
+    public VisitorEntity createVisitorEntity(MetricReceivedDto metricReceivedDto, WebSocketSession session)
+            throws IOException {
 
         VisitorEntity visitorEntity = new VisitorEntity();
 
@@ -47,6 +51,11 @@ public class VisitorEntityService {
         visitorEntity.setState(metricReceivedDetailsDto.getState());
         visitorEntity.setTown(metricReceivedDetailsDto.getTown());
         this.visitorEntityRepository.save(visitorEntity);
+
+        System.out.println("SAVED");
+                // TODO create notifier here
+        TextMessage msg = new TextMessage("[RESPONSE] - Vistor Created with success".getBytes());
+        session.sendMessage(msg);
 
         return visitorEntity;
     }

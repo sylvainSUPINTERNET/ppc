@@ -35,7 +35,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         String actionReceived = wsDispatchActions.getActionFromClient(message.getPayload());
         Object dataReceived = wsDispatchActions.getDataFromClient(message.getPayload());
         this.logger.info("ACTION : {}", actionReceived);
-        wsDispatchActions.doAction(actionReceived, dataReceived);
+        wsDispatchActions.doAction(actionReceived, dataReceived, session);
         
         
         // TODO ici une règle pour récuperer certains message et faire certainne actions en conséqueunce 
