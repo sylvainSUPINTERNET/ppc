@@ -116,6 +116,10 @@ public class VisitorEntity {
         this.browserLanguage = browserLanguage;
     }
 
+    public long getId() {
+        return this.id;
+    }
+
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;

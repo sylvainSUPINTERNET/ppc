@@ -21,12 +21,15 @@ public class VisitorController {
     VisitorController(VisitorEntityService visitorEntityService){
         this.visitorEntityService = visitorEntityService;
     }
+    
+
+
 
 
     @GetMapping
-    public ResponseEntity<?> getVisitors(@RequestParam int page, @RequestParam int pages, @RequestParam String filter) {
+    public ResponseEntity<?> getVisitors(@RequestParam int page, @RequestParam int size, @RequestParam String filter) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.visitorEntityService.getVisitors(page, pages, filter));
+            return ResponseEntity.status(HttpStatus.OK).body(this.visitorEntityService.getVisitors(page, size, filter));
         } catch (Exception e) {
             Map error = new HashMap<String, Object>();
             error.put("message", e.getMessage());

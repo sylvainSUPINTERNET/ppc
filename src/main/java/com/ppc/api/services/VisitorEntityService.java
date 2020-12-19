@@ -27,8 +27,8 @@ public class VisitorEntityService {
         this.visitorEntityRepository = visitorEntityRepository;
     };
 
-    public Page<VisitorEntity> getVisitors(int page, int nbElements, String paramSort) {
-        Pageable sortedByCreatedDate = PageRequest.of(page, nbElements, Sort.by(paramSort).descending()); // https://www.codeflow.site/fr/article/spring-data-jpa-pagination-sorting
+    public Page<VisitorEntity> getVisitors(int page, int size, String paramSort) {
+        Pageable sortedByCreatedDate = PageRequest.of(page, size, Sort.by(paramSort).descending()); // https://www.codeflow.site/fr/article/spring-data-jpa-pagination-sorting
         return this.visitorEntityRepository.findAll(sortedByCreatedDate);
     }
 
