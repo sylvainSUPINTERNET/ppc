@@ -28,7 +28,7 @@ public class VisitorEntityService {
     };
 
     public Page<VisitorEntity> getVisitors(int page, int size, String paramSort) {
-        Pageable sortedByCreatedDate = PageRequest.of(page, size, Sort.by(paramSort).descending()); // https://www.codeflow.site/fr/article/spring-data-jpa-pagination-sorting
+        Pageable sortedByCreatedDate = PageRequest.of(page, size, Sort.by(paramSort).ascending()); // https://www.codeflow.site/fr/article/spring-data-jpa-pagination-sorting
         return this.visitorEntityRepository.findAll(sortedByCreatedDate);
     }
 
@@ -39,8 +39,9 @@ public class VisitorEntityService {
 
         Gson gson = new Gson();
         String json = gson.toJson(metricReceivedDto.getData());
+        System.out.println(json);
+
         MetricReceivedDetailsDto metricReceivedDetailsDto = gson.fromJson(json, MetricReceivedDetailsDto.class);
-        
         visitorEntity.setBrowserLanguage(metricReceivedDetailsDto.getBrowserLanguage());
         visitorEntity.setBrowserPlatform(metricReceivedDetailsDto.getBrowserPlatform());
         visitorEntity.setCountry(metricReceivedDetailsDto.getCountry());
@@ -51,7 +52,8 @@ public class VisitorEntityService {
         visitorEntity.setState(metricReceivedDetailsDto.getState());
         visitorEntity.setTown(metricReceivedDetailsDto.getTown());
         this.visitorEntityRepository.save(visitorEntity);
-
+                
+        System.out.println(metricReceivedDetailsDto.getBrowserPlatform());
         System.out.println("SAVED");
                 // TODO create notifier here
         TextMessage msg = new TextMessage("[RESPONSE] - Vistor Created with success".getBytes());

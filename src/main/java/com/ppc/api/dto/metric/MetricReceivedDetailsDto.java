@@ -41,7 +41,7 @@ public class MetricReceivedDetailsDto {
     }
     
     public String getBrowserPlatform () {
-        return this.browserLanguage;
+        return this.browserPlatform;
     }
     public void setBrowserPlatform (String browserPlatform) {
         this.browserPlatform = browserPlatform;
