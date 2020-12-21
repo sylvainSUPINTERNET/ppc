@@ -2,7 +2,10 @@ package com.ppc.api.services;
 
 import com.ppc.api.dto.metric.MetricReceivedDetailsDto;
 import com.ppc.api.dto.metric.MetricReceivedDto;
+
+import com.ppc.api.dto.metric.visitors.MetricResponse;
 import com.ppc.api.repository.VisitorEntityRepository;
+import com.ppc.api.staticCnf.VisitorActions;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,9 +25,11 @@ import com.google.gson.Gson;
 @Service
 public class VisitorEntityService {
     VisitorEntityRepository visitorEntityRepository;
+    MetricResponse metricResponse;
 
-    public VisitorEntityService(VisitorEntityRepository visitorEntityRepository) {
+    public VisitorEntityService(VisitorEntityRepository visitorEntityRepository, MetricResponse metricResponse) {
         this.visitorEntityRepository = visitorEntityRepository;
+        this.metricResponse = metricResponse;
     };
 
     public Page<VisitorEntity> getVisitors(int page, int size, String paramSort) {
@@ -56,7 +61,12 @@ public class VisitorEntityService {
         System.out.println(metricReceivedDetailsDto.getBrowserPlatform());
         System.out.println("SAVED");
                 // TODO create notifier here
-        TextMessage msg = new TextMessage("[RESPONSE] - Vistor Created with success".getBytes());
+        
+        String jsonResponse = gson.toJson(metricReceivedDto.getData());
+
+        MetricResponse metricResponse = new MetricResponse(VisitorActions.CREATE_VISITOR, visitorEntity);
+        String jsonVisitorCreateResponse = gson.toJson(metricResponse.getVisitor());
+        TextMessage msg = new TextMessage(jsonVisitorCreateResponse.getBytes());
         session.sendMessage(msg);
 
         return visitorEntity;
