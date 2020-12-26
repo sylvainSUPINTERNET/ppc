@@ -7,6 +7,14 @@ logging:
 spring:
     profiles:
         active: dev
+    data:
+        mongodb:
+            #authentication-database: admin
+            username: root
+            password: root
+            database: zulianmongodb
+            port: 27017
+            host: localhost
     datasource:
         hikari:
             connectionTimeout: 20000
