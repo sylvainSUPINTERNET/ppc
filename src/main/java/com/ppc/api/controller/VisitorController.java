@@ -1,10 +1,13 @@
 package com.ppc.api.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.ppc.api.entities.VisitorEntity;
 import com.ppc.api.services.VisitorEntityService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +25,13 @@ public class VisitorController {
         this.visitorEntityService = visitorEntityService;
     }
     
-
-
-
-
     @GetMapping
     public ResponseEntity<?> getVisitors(@RequestParam int page, @RequestParam int size, @RequestParam String filter) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.visitorEntityService.getVisitors(page, size, filter));
+            Page<VisitorEntity> visitors = this.visitorEntityService.getVisitors(page, size, filter);
+            return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(visitors);
         } catch (Exception e) {
             Map error = new HashMap<String, Object>();
             error.put("message", e.getMessage());
